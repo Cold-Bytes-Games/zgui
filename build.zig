@@ -121,6 +121,8 @@ pub fn build(b: *std.Build) void {
         }
     }
 
+    imgui.root_module.addCMacro("IMGUI_IMPL_API", "extern \"C\"");
+
     b.installArtifact(imgui);
 
     const emscripten = target.result.os.tag == .emscripten;
@@ -244,6 +246,10 @@ pub fn build(b: *std.Build) void {
         imgui.addCSourceFile(.{ .file = b.path("libs/imgui_test_engine/imgui_te_perftool.cpp"), .flags = cflags });
         imgui.addCSourceFile(.{ .file = b.path("libs/imgui_test_engine/imgui_te_ui.cpp"), .flags = cflags });
         imgui.addCSourceFile(.{ .file = b.path("libs/imgui_test_engine/imgui_te_utils.cpp"), .flags = cflags });
+    }
+
+    if (target.result.os.tag == .windows and target.result.abi == .msvc) {
+        imgui.root_module.addCMacro("_Avx2WmemEnabledWeakValue", "_Avx2WmemEnabled");
     }
 
     switch (options.backend) {

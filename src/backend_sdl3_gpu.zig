@@ -42,9 +42,9 @@ pub fn render() void {
 }
 
 pub fn prepareDrawData(
-    command_buffer: *const anyopaque, // SDL_GPUCommandBuffer
+    command_buffer: *anyopaque, // SDL_GPUCommandBuffer
 ) void {
-    Imgui_ImplSDLGPU3_PrepareDrawData(gui.getDrawData(), command_buffer);
+    ImGui_ImplSDLGPU3_PrepareDrawData(gui.getDrawData(), command_buffer);
 }
 
 pub fn renderDrawData(
@@ -65,9 +65,9 @@ pub fn renderDrawData(
 extern fn ImGui_ImplSDLGPU3_Init(info: *const anyopaque) bool;
 extern fn ImGui_ImplSDLGPU3_Shutdown() void;
 extern fn ImGui_ImplSDLGPU3_NewFrame() void;
-extern fn Imgui_ImplSDLGPU3_PrepareDrawData(
-    draw_data: *const anyopaque,
-    command_buffer: *const anyopaque, // SDL_GPUCommandBuffer
+extern fn ImGui_ImplSDLGPU3_PrepareDrawData(
+    draw_data: *anyopaque,
+    command_buffer: *anyopaque, // SDL_GPUCommandBuffer
 ) void;
 extern fn ImGui_ImplSDLGPU3_RenderDrawData(
     draw_data: *const anyopaque,
