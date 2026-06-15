@@ -28,8 +28,8 @@
             .lazy = true,
         },
         .zsdl = .{
-            .url = "https://github.com/zig-gamedev/zsdl/archive/fa05b59b5e133141680077534e6c86d8c98f8dec.tar.gz",
-            .hash = "zsdl-0.4.0-dev-rFpjE6PoXwBMQ7CuE5QFp4l7iRuNc6e6YZNAMyOtbWOa",
+            .url = "https://github.com/Cold-Bytes-Games/zsdl/archive/0cd6ef5efb7d0c4be0dbe5764ed6cadaf512b5cc.tar.gz",
+            .hash = "zsdl-0.4.0-dev-rFpjE6joXwBkkjebOeUtu48pm4Xq9ke1JEHRw3aO-mxz",
             .lazy = true,
         },
         .freetype = .{
