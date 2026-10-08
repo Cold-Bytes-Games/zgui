@@ -1002,10 +1002,14 @@ pub fn getContentRegionAvail() [2]f32 {
 pub const getWindowWidth = zguiGetWindowWidth;
 /// `pub fn getWindowHeight() f32`
 pub const getWindowHeight = zguiGetWindowHeight;
+/// `pub fn getWindowDockID() Ident`
+pub const getWindowDockID = zguiGetWindowDockID;
+
 extern fn zguiGetWindowPos(pos: *[2]f32) void;
 extern fn zguiGetWindowSize(size: *[2]f32) void;
 extern fn zguiGetWindowWidth() f32;
 extern fn zguiGetWindowHeight() f32;
+extern fn zguiGetWindowDockID() Ident;
 extern fn zguiGetContentRegionAvail(size: *[2]f32) void;
 
 pub const Window = opaque {};
@@ -3039,15 +3043,18 @@ pub const ColorEditFlags = packed struct(c_int) {
     no_drag_drop: bool = false,
     no_border: bool = false,
 
+    alpha_opaque: bool = false,
+    alpha_no_bg: bool = false,
+    alpha_preview_half: bool = false,
+
     _reserved1: bool = false,
     _reserved2: bool = false,
-    _reserved3: bool = false,
-    _reserved4: bool = false,
-    _reserved5: bool = false,
 
     alpha_bar: bool = false,
-    alpha_preview: bool = false,
-    alpha_preview_half: bool = false,
+
+    _reserved3: bool = false,
+    _reserved4: bool = false,
+
     hdr: bool = false,
     display_rgb: bool = false,
     display_hsv: bool = false,
