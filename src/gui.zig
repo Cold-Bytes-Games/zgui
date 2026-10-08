@@ -1241,10 +1241,10 @@ pub const Style = extern struct {
     }
 
     pub fn getColor(style: Style, idx: StyleCol) [4]f32 {
-        return style.colors[@intCast(@intFromEnum(idx))];
+        return style.colors[@intCast(@backingInt(idx))];
     }
     pub fn setColor(style: *Style, idx: StyleCol, color: [4]f32) void {
-        style.colors[@intCast(@intFromEnum(idx))] = color;
+        style.colors[@intCast(@backingInt(idx))] = color;
     }
 };
 /// `pub fn getStyle() *Style`
@@ -2016,16 +2016,16 @@ pub fn comboFromEnum(
         @compileError("Error: current_item must be a pointer-to-an-enum, not a " ++ @TypeOf(EnumType));
     };
 
-    const FieldNameIndex = std.meta.Tuple(&.{ []const u8, i32 });
+    const FieldNameIndex = @Tuple(&.{ []const u8, i32 });
     comptime var item_names: [:0]const u8 = "";
-    comptime var field_name_to_index_list: [enum_type_info.fields.len]FieldNameIndex = undefined;
-    comptime var index_to_enum: [enum_type_info.fields.len]EnumType = undefined;
+    comptime var field_name_to_index_list: [enum_type_info.field_names.len]FieldNameIndex = undefined;
+    comptime var index_to_enum: [enum_type_info.field_names.len]EnumType = undefined;
 
     comptime {
-        for (enum_type_info.fields, 0..) |f, i| {
-            item_names = item_names ++ f.name ++ "\x00";
-            const e: EnumType = @enumFromInt(f.value);
-            field_name_to_index_list[i] = .{ f.name, @intCast(i) };
+        for (0..enum_type_info.field_names.len) |i| {
+            item_names = item_names ++ enum_type_info.field_names[i] ++ "\x00";
+            const e: EnumType = @fromBackingInt(@intCast(enum_type_info.field_values[i]));
+            field_name_to_index_list[i] = .{ enum_type_info.field_names[i], @intCast(i) };
             index_to_enum[i] = e;
         }
     }
